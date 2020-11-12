@@ -113,6 +113,7 @@ namespace IdentityApp.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult PassWord()
         {
             
