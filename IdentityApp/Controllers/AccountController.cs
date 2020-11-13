@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IdentityApp.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -31,7 +31,6 @@ namespace IdentityApp.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -40,7 +39,6 @@ namespace IdentityApp.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id, Email, Region")]RegisterViewModel model, string returnUrl = null)
         {
@@ -73,17 +71,15 @@ namespace IdentityApp.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult SignIn(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login (LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> SignIn (LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -91,11 +87,12 @@ namespace IdentityApp.Controllers
                 var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(Index));
+                    if (returnUrl != null) return LocalRedirect(returnUrl);
+                    else return RedirectToAction(nameof(Index), "Home");
                 }
-                else if (result.IsLockedOut)
+                else if (result.IsLockedOut) 
                 {
-                    return RedirectToAction(nameof(Lockout));
+                    return RedirectToAction(nameof(SignOut));
                 }
                 else
                 {
@@ -106,17 +103,14 @@ namespace IdentityApp.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> Lockout()
+        public async Task<IActionResult> SignOut()
         {
             await signInManager.SignOutAsync();
-            return View();
+            return RedirectToAction(nameof(SignIn));
         }
 
-        [AllowAnonymous]
         public IActionResult PassWord()
-        {
-            
+        {        
             return View();
         }
     }

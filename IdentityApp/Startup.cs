@@ -46,9 +46,11 @@ namespace IdentityApp
             {
                 options.Cookie.Name = "IdenApp";
                 options.Cookie.HttpOnly = true;
-                options.LoginPath = "/Account/Login";
+                options.LoginPath = "/Account/SignIn";
+                //options.ReturnUrlParameter = "ret"
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
             });
 
             services.AddControllersWithViews();
@@ -83,7 +85,7 @@ namespace IdentityApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=SignIn}/");
             });
         }
     }
