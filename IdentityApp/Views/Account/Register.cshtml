@@ -4,27 +4,80 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+@*<div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Region"></label>
+                    <select asp-for="Region" class="form-control" asp-items="ViewBag.Regions"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register" class="btn btn-info" />
+                </div>
+            </form>
+        </div>
+    </div>*@
+
+
+
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3>Вход</h3>
             </div>
-            <div class="form-group">
-                <label asp-for="Region"></label>
-                <select asp-for="Region" class="form-control" asp-items="ViewBag.Regions"></select>
+            <div class="card-body">
+                <form>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span  class="input-group-text text-center">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        <input asp-for="Email" type="number" class="form-control" placeholder="Пин">
+
+                    </div>
+                    <div class="input-group form-group" style="margin-top: 20px;">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                        <input asp-for="Email" type="text" class="form-control" placeholder="Почта">
+
+                    </div>
+                    <div class="input-group form-group" style="margin-top: 20px;
+">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-check-square"></i>
+                            </span>
+                        </div>
+                        <select asp-for="Region" class="form-control" asp-items="ViewBag.Regions"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-center" style="margin-top: 25px;">
+                            <input type="submit" value="Регистрация" class="btn login_btn" style="width:150px;">
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-info" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+<!-- скрипт для добавления иконок-->
+<script src="https://kit.fontawesome.com/1862d91d28.js" crossorigin="anonymous"></script>
+
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
