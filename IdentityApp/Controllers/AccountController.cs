@@ -18,12 +18,18 @@ namespace IdentityApp.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly AppDbContext context;
+        private readonly IEmailSender sender;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, AppDbContext context)
+        public AccountController(
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager, 
+            AppDbContext context, 
+            IEmailSender sender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.context = context;
+            this.sender = sender;
         }
         [AllowAnonymous]
         public IActionResult Index()
@@ -57,8 +63,7 @@ namespace IdentityApp.Controllers
                 {
                     //await signInManager.SignInAsync(user, isPersistent: false);
                     TempData["Message"] = model.Password;
-                    var mailService = new SendMailService();
-                    await mailService.SendEmailAsync(model.Email, "Ваш пароль", model.Password);
+                    await sender.SendEmailAsync(model.Email, "Ваш пароль", model.Password);
                     return RedirectToAction(nameof(PassWord));
                 }
                 else
@@ -151,6 +156,7 @@ namespace IdentityApp.Controllers
             return RedirectToAction(nameof(SignIn));
         }
 
+        [AllowAnonymous]
         public IActionResult PassWord() => View();
         
     }

@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using IdentityApp.Models;
-
+using IdentityApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,6 +51,15 @@ namespace IdentityApp
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
             });
+
+            services.AddTransient<IEmailSender, EmailSender>(i =>
+                new EmailSender(
+                    Configuration["EmailSender:Host"],
+                    Configuration.GetValue<int>("EmailSender:Port"),
+                    Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                    Configuration["EmailSender:UserName"],
+                    Configuration["EmailSender:Password"],
+                    Configuration["EmailSender:Owner"]));
 
             services.AddControllersWithViews();
    
