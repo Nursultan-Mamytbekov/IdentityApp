@@ -17,6 +17,9 @@ namespace IdentityApp.Models
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string RegionCode { get; set; }
+
         public List<User> Users { get; set; }
     }
 }
