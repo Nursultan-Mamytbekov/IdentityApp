@@ -61,6 +61,9 @@ namespace IdentityApp
                     Configuration["EmailSender:Password"],
                     Configuration["EmailSender:Owner"]));
 
+            //services.AddTransient<IEmailSender, ConsoleSender>();
+
+
             services.AddControllersWithViews();
    
         }
@@ -93,7 +96,7 @@ namespace IdentityApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=SignIn}/");
+                    pattern: "{controller=Home}/{action=Index}/");
             });
         }
     }

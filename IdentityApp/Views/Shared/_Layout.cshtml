@@ -17,19 +17,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>*@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <div class="loginBtn">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="btn btn-success my-2 my-lg-0" asp-area="" asp-controller="Account" asp-action="SignOut">Sign out</a>
-                            </li>
+                            <a class="btn btn-success my-2 my-lg-0" asp-area="" asp-controller="Account" asp-action="SignOut">Выход</a>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="btn btn-success my-2 my-lg-0" asp-area="" asp-controller="Account" asp-action="SignIn">Sign in</a>
-                            </li>
+                            <a class="btn btn-success my-2 my-lg-0" asp-area="" asp-controller="Account" asp-action="SignIn">Вход</a>
                         }
+                    </div>
+                    <ul class="navbar-nav flex-grow-1">                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>

@@ -32,10 +32,10 @@
     <div class="d-flex justify-content-center h-100">
         <div class="card">
             <div class="card-header">
-                <h3>Вход</h3>
+                <h3>Регистрация</h3>
             </div>
             <div class="card-body">
-                <form asp-action="Register" method="post">
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" asp-action="Register" method="post">
                     @*<div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span  class="input-group-text text-center">
@@ -71,7 +71,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> 
     </div>
 </div>
 <!-- скрипт для добавления иконок-->
